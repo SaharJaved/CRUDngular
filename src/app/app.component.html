@@ -1,3 +1,53 @@
-<h1>
-  {{title}}
-</h1>
+<h1>{{title}} </h1>
+<form #Form="ngForm" (submit)="onclickAdd()">
+  <div id=form>
+    <input type="text" name="user" placeholder="Student Name" [(ngModel)]=user>
+
+    <input type="text" name="class" placeholder="Class" [(ngModel)]=classs>
+
+    <input type="text" name="year" placeholder="Batch Number" [(ngModel)]=year required pattern="[0-9]{4}"
+           title="e.g 2014">
+
+    <input type="email" name="email" placeholder="Email" [(ngModel)]=email required>
+
+    <input type="text" name="contactNumber" placeholder="Contact Number" [(ngModel)]=contactNumber required
+           pattern="[0]{1}[0-9]{3}[-][0-9]{7}" title="0XXX-XXXXXX"><br>
+
+
+    <input *ngIf="appear==false" type="submit" name="buttons" value="insert">
+  </div>
+  <div id=table *ngIf="Show==true">
+
+    <table>
+      <tr>
+
+        <th>{{"ID"}}</th>
+        <th>{{"User"}}</th>
+        <th>{{"Class"}}</th>
+        <th>{{"Year"}}</th>
+        <th>{{"Email"}}</th>
+        <th>{{"Contact Number"}}</th>
+      </tr>
+
+
+      <tr *ngFor="let student of array">
+        <td>{{student.id}}</td>
+        <td>{{student.user}}</td>
+        <td>{{student.classs}}</td>
+        <td>{{student.year}}</td>
+        <td>{{student.email}}</td>
+        <td>{{student.contactNumber}}</td>
+
+        <input type="button" name="buttons" value="Delete" (click)="onclickdel(student)">
+
+        <input type="button" name="buttons" value="Modify" (click)="onclickMod(student)">
+
+        <input type="button" *ngIf="student.isEdit==true" name="done" value="Done" (click)="onclickDone(student)">
+
+
+      </tr>
+    </table>
+
+  </div>
+
+</form>
